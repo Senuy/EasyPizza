@@ -9,6 +9,9 @@ public class Ingredients {
 	private String descripiton;
 	private Double quantityInStock;
 	// Ideia criar um enum para tipos de medida em estoque, g , kg, quantidade, Litros
+	
+	
+	
 	public Ingredients() {
 	}
 

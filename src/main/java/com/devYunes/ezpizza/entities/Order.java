@@ -1,30 +1,49 @@
 package com.devYunes.ezpizza.entities;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 
+@Entity
+@Table(name = "tb_order")
 public class Order {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Instant date_time;
 	private StatusOrder statusOrder;
-	private List<Pizza> pizzas;
 	private Delivery delivery;
 	private Client client;
 	private Double totalPrice;
 	
+	@ManyToOne
+	@JoinColumn(name = "pizzaria_id")
+	private Pizzaria pizzaria;
+	
+	@OneToMany(mappedBy = "order")
+	private List<Pizza> pizzas = new ArrayList<>();
+	
+	
 	public Order() {
 	}
 
-	public Order(Long id, Instant date_time, StatusOrder statusOrder, List<Pizza> pizzas, Delivery delivery,
+	public Order(Long id, Instant date_time, StatusOrder statusOrder, Delivery delivery,
 			Client client, Double totalPrice) {
 		this.id = id;
 		this.date_time = date_time;
 		this.statusOrder = statusOrder;
-		this.pizzas = pizzas;
 		this.delivery = delivery;
 		this.client = client;
 		this.totalPrice = totalPrice;
